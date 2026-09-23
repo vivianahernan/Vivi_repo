@@ -7,3 +7,4 @@ curso_R/datos/*.rds
 curso_R/datos/*.rdata
 curso_R/datos/WeatherPred_data.csv
 curso_R/datos/notas.csv
+Rplots.pdf
