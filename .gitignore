@@ -1,0 +1,9 @@
+.Rhistory
+.RData
+.Rproj.user/
+curso_R/resultados/*
+!curso_R/resultados/.gitkeep
+curso_R/datos/*.rds
+curso_R/datos/*.rdata
+curso_R/datos/WeatherPred_data.csv
+curso_R/datos/notas.csv
