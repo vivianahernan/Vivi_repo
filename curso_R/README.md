@@ -27,10 +27,21 @@ Ruta de aprendizaje desde cero, construida a partir de los errores reales de tus
 | `scripts/07_regresion.R` | Modelos | Regresión lineal, logística (OR) y de Poisson para tasas |
 | `scripts/08_encuestas_complejas.R` | **survey** | Factores de expansión, `svymean`, `svyby`, CV, `subset` y `svyglm` |
 | `scripts/09_tasas_mortalidad.R` | Epidemiología | Tasas crudas, específicas y ajustadas por edad (OMS) |
+| `scripts/10_mortalidad_real_deis.R` | **Datos reales** | Tasas de mortalidad 2010-2025 de Chile y regiones con la base del DEIS |
 | `scripts/plantilla_script.R` | Plantilla | Estructura que deben tener todos tus scripts |
 | `ejercicios/corregidos/` | Tus scripts corregidos | `tarea_WP`, notas y ENSSEX, reescritos correctamente |
 
-Los scripts 03 al 09 usan `datos/encuesta_limpia.rds`, que genera el **03**, así que ejecútalo antes. Los datos son **simulados**: las cifras no describen a Chile.
+Los scripts 03 al 08 usan `datos/encuesta_limpia.rds`, que genera el **03**, así que ejecútalo antes. Los datos de los módulos 00 a 09 son **simulados**: las cifras no describen a Chile.
+
+## Bases reales (se descargan solas la primera vez)
+
+| Base | Script | Fuente |
+|---|---|---|
+| ENSSEX 2022-2023 (`enssex4`) | `ejercicios/corregidos/enssex_corregido.R` | datos.gob.cl |
+| Defunciones por semana, sexo, edad y región 2010-hoy (con población) | `scripts/10_mortalidad_real_deis.R` | DEIS-MINSAL vía datos.gob.cl |
+| Proyecciones de población comunal 2002-2035 | (para tus propios análisis) | [INE](https://www.ine.gob.cl/docs/default-source/proyecciones-de-poblacion/cuadros-estadisticos/base-2017/estimaciones-y-proyecciones-2002-2035-comunas.xlsx) |
+
+Para buscar otras bases de datos.gob.cl desde R: `jsonlite::fromJSON("https://datos.gob.cl/api/3/action/package_search?q=defunciones")`.
 
 ## Reglas que aplican a todos los scripts
 

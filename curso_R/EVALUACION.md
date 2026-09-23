@@ -1,6 +1,6 @@
 # Evaluación de tus scripts de R
 
-**Revisados:** 10 archivos de R de tu Google Drive (marzo a junio de 2025). No pude ejecutarlos con tus datos originales porque `WeatherPred_data.csv` y `notas.csv` no están en el Drive, y el contenedor no tiene acceso a datos.gob.cl. Leí el código completo y probé las versiones corregidas con datos sintéticos que tienen la misma estructura.
+**Revisados:** 10 archivos de R de tu Google Drive (marzo a junio de 2025). No pude ejecutar `tarea_WP` ni el de notas con tus datos originales porque `WeatherPred_data.csv` y `notas.csv` no están en el Drive; esas correcciones las probé con datos sintéticos de la misma estructura. **El ejercicio de la ENSSEX sí lo ejecuté con la base real** descargada de datos.gob.cl (20.392 personas).
 
 ## Veredicto
 
@@ -50,10 +50,10 @@ Es prueba y error, sin un modelo mental de `tabla$columna` ni de `[filas, column
 - `max(WP_data$Participant)` como "cantidad de participantes" solo funciona si los ID van de 1 a N sin saltos. Lo correcto es `n_distinct()`.
 - `sum(WP_data$Trial)` y `sum(matriz)` suman cosas sin interpretación: números de ensayo o todas las notas junto con el ID.
 - `rowMeans(matriz)` promedia también la columna de ID si existe.
-- Ejercicio ENSSEX: se calcula `mean(perc_salud)` sobre una escala ordinal **sin quitar los códigos de no respuesta**. Si la variable tiene códigos 88/99 (revísalo en el libro de códigos), la media queda inflada sin que aparezca ningún aviso.
+- Ejercicio ENSSEX: se calcula `mean(perc_salud)` sobre una escala ordinal **sin quitar los códigos de no respuesta**. Verificado en la base real: `p10` tiene **8 = No sabe (110 casos) y 9 = No responde (83 casos)**, que entran al promedio como si fueran notas de salud. A nivel nacional el sesgo es pequeño (3,70 vs 3,66), pero en Biobío el promedio sube de 3,85 a 4,07 porque ahí se concentran 72 de esos códigos. R no da ningún aviso.
 
 ### 4. Sin factores de expansión en la ENSSEX (grave para salud pública)
-Todo lo calculado con `enssex4` describe **la muestra**, no a la población chilena. Además, si filtras con `filter()` antes de declarar el diseño, los errores estándar quedan mal calculados. Una prevalencia de una encuesta nacional sin `fexp`, estrato y conglomerado no se puede publicar. Lo trabajas en el módulo 08, y la versión corregida está en `ejercicios/corregidos/enssex_corregido.R`.
+Todo lo calculado con `enssex4` describe **la muestra**, no a la población chilena. En la base real, **el 66,5% de la muestra son mujeres, pero ponderado son el 51,7%**: cualquier promedio sin ponderar sobrerrepresenta a las mujeres. Ojo con una trampa de la base: existe una variable `exp` pero viene **vacía**; el ponderador de personas es `w_personas_cal`, y el diseño se declara con `varstrat` (estrato) y `varunit` (conglomerado). Además, si filtras con `filter()` antes de declarar el diseño, los errores estándar quedan mal calculados. Una prevalencia de una encuesta nacional sin `fexp`, estrato y conglomerado no se puede publicar. Lo trabajas en el módulo 08, y la versión corregida está en `ejercicios/corregidos/enssex_corregido.R`.
 
 ### 5. Errores de sintaxis que se repiten (moderado)
 | Lo que escribiste | Problema | Correcto |
@@ -91,6 +91,6 @@ En `Ayudantia_20250326.R` hay 20 líneas (`mean/sd/min/max` × 4 pruebas) que se
 | 4 | 06 | Elegir la prueba correcta para 5 preguntas y reportarlas con IC |
 | 5 | 07 | Un modelo logístico interpretado en un párrafo, como en un artículo |
 | 6 | 08 | Prevalencia ponderada de un indicador de la ENSSEX real, con IC y CV |
-| 7 | 09 | Tasas ajustadas por edad con la base DEIS real de defunciones |
+| 7 | 09 y 10 | Tasas ajustadas por edad; el módulo 10 usa la base real del DEIS |
 
 **Regla para toda la ruta:** no copies código que no puedas explicar línea por línea. Cuando un script ajeno te sirva (como el del MINSAL), reescríbelo con tus nombres y tus comentarios.

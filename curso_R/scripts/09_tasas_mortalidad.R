@@ -51,12 +51,14 @@ estandar_oms <- tibble(
 tasas <- mort |>
   left_join(estandar_oms, by = "grupo_edad") |>
   group_by(anio, sexo) |>
+  # summarise() evalúa en orden: la línea que reescribe "defunciones" va AL FINAL,
+  # para que las anteriores usen los valores por grupo de edad y no el total.
   summarise(
-    defunciones = sum(defunciones),
     tasa_cruda  = sum(defunciones) / sum(poblacion) * 1e5,
     tasa_ajust  = sum(tasa_esp * peso),       # suma ponderada de tasas específicas
     # Error estándar aproximado (Poisson) de la tasa ajustada
     ee_ajust    = sqrt(sum(peso^2 * defunciones / poblacion^2)) * 1e5,
+    defunciones = sum(defunciones),
     .groups = "drop"
   ) |>
   mutate(ic_inf = tasa_ajust - 1.96 * ee_ajust,

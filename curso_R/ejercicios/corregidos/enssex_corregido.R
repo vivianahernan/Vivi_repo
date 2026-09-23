@@ -5,20 +5,23 @@
 # Entrada   : ENSSEX desde datos.gob.cl (se descarga una vez a datos/)
 # Salida    : datos/enssex_proc.rds, resultados/enssex_perc_salud_region.csv
 #
-# ANTES DE CORRER: abre el libro de códigos y el manual metodológico de la ENSSEX
-# y completa la sección 0. Los valores que dejé son SUPUESTOS que debes verificar;
-# el script se detiene si las variables no existen.
+# Los parámetros de la sección 0 están VERIFICADOS contra la base publicada
+# (20240516_enssex_data.rdata, objeto enssex4: 20.392 personas, 1.126 variables).
 # =============================================================================
 
 library(dplyr)
 library(readr)
 library(survey)
 
-# --- 0. Parámetros que debes verificar en la documentación -------------------
-VAR_FEXP     <- "fexp"          # factor de expansión de personas
-VAR_ESTRATO  <- "estrato"       # estrato de diseño
-VAR_CONGLOM  <- "conglomerado"  # unidad primaria de muestreo
-CODIGOS_NR   <- c(88, 99)       # códigos "no sabe / no responde" de p8 y p10
+# --- 0. Parámetros del diseño (verificados en la base) -----------------------
+# OJO: existe una variable "exp" pero viene VACÍA (todo ""). El ponderador de
+# personas es w_personas_cal ("calibrado 3 márgenes: sexo_edad, región, educ.");
+# suma 13,58 millones = población de 18+ años.
+# (w_personas_cal_nr_mod_hogar es solo para el módulo hogar: 6.738 casos.)
+VAR_FEXP     <- "w_personas_cal"  # factor de expansión de personas
+VAR_ESTRATO  <- "varstrat"        # pseudo-estrato (84)
+VAR_CONGLOM  <- "varunit"         # pseudo-conglomerado (372)
+CODIGOS_NR   <- c(8, 9)           # p8 y p10: 8 = No sabe, 9 = No responde
 
 # --- 1. Cargar (descarga solo la primera vez) --------------------------------
 url_enssex <- "https://datos.gob.cl/dataset/c6983439-49f6-4e71-85fe-e8de6e73dae0/resource/ed81f50c-1c7d-43d9-9083-dfc161e0cd66/download/20240516_enssex_data.rdata"

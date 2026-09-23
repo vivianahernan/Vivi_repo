@@ -12,8 +12,9 @@
 #   1) Estimaciones puntuales sesgadas (sin fexp)
 #   2) Errores estándar subestimados -> IC muy estrechos y p falsamente pequeños
 #      (sin estrato/conglomerado)
-# Nombres reales en las bases chilenas: revisa el manual metodológico de cada una
-# (p.ej. "fexp", "estrato", "conglomerado", "varstrat", "varunit").
+# Los nombres cambian en cada base. En la ENSSEX 2022-2023 (verificado):
+#   ponderador = w_personas_cal, estrato = varstrat, conglomerado = varunit.
+#   (Existe una variable "exp" pero viene vacía: siempre revisa summary() del peso.)
 # =============================================================================
 
 library(dplyr)

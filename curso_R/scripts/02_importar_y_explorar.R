@@ -31,8 +31,9 @@ encuesta <- read_csv("datos/encuesta_salud.csv")
 # haven::read_sav("base.sav")        # SPSS (conserva etiquetas de valores)
 # haven::read_dta("base.dta")        # Stata
 # readxl::read_excel("base.xlsx", sheet = 1)
-# read_delim("defunciones_deis.csv", delim = ";",
-#            locale = locale(encoding = "latin1"))  # CSV del DEIS: ";" y tildes latin1
+# read_delim("archivo_deis.csv", delim = ";", locale = locale(encoding = "latin1"))
+#   # Las bases del DEIS cambian de separador (";" o "|") y de codificación
+#   # (latin1 o UTF-8). Míralo antes con: readLines("archivo_deis.csv", n = 3)
 # load("base.RData")                 # crea el objeto que venga adentro (p.ej. enssex4)
 
 
@@ -91,8 +92,7 @@ range(encuesta$edad)
 # EJERCICIOS (ejercicios/mis_respuestas_02.R)
 # 1. ¿Cuántas personas hay por región? (table). ¿Qué región concentra más casos?
 # 2. ¿Qué porcentaje de la muestra tiene ingreso perdido?
-# 3. Busca en internet el libro de códigos de la ENSSEX 2022-2023 y anota qué
-#    códigos de no respuesta tienen p8 (calidad de vida) y p10 (percepción de salud).
-#    Si existen, ¿se excluían en el ejercicio de la ayudantía 2? (En ese script no
-#    se filtraba ningún código antes de calcular mean(perc_salud).)
+# 3. Carga la ENSSEX real (ver ejercicios/corregidos/enssex_corregido.R) y revisa
+#    attr(enssex4$p10, "labels"). ¿Qué códigos de no respuesta tiene p10?
+#    (Respuesta: 8 = No sabe, 9 = No responde. En la ayudantía 2 no se excluían.)
 # =============================================================================
